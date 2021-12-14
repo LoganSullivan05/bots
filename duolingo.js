@@ -160,7 +160,7 @@ async function test(){
         await sleep(100);
         check_btn.click();
     }else{
-        getElementByXpath('//*[text() = "'+word_bank[0].textContent+'"]').click();
+        word_bank[0].click();
         await sleep(100);
         check_btn.click();
         await sleep(200);
