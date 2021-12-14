@@ -14,8 +14,18 @@ async function test(){
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
-        //its impossible to get these wrong (i think); just brute force btns
-        //TODO (need dev. console)
+        for(let i=1;i<btns.length-2;i++){
+            for(let j=1;j<btns.length-2;j++){
+                btns[i].click();
+                await sleep(50);
+                btns[j].click();
+                await sleep(50)
+            }
+        }
+        await sleep(100);
+        continue_el.parentElement.click();
+        test();
+        return
     }
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
         if(skip_btn==null){
@@ -67,7 +77,7 @@ async function test(){
     }else{
         getElementByXpath('//*[text() = "'+word_bank[0].textContent+'"]').click();
         await sleep(100);
-        check_btn.click();
+        check_btn.parentElement.click();
         await sleep(200);
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
         const parent_classList = continue_el.parentElement.classList;
