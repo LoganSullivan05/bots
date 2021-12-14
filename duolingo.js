@@ -55,7 +55,8 @@ async function test(){
         check_btn.click();
     }else{
         in_field.value = "no clue";
-        check_btn.click();
+        in_field.submit();
+        //check_btn.click();
         await sleep(200);
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         questions[question_el] = answer;
