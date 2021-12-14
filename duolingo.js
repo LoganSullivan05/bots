@@ -15,14 +15,23 @@ async function test(){
             if(skip_btn2==null){
                 const skip_btn3 = getElementByXpath('//*[text() = \"Can\'t listen now\"]');
                 skip_btn3.click();
+                await sleep(200);
+                const continue_el = getElementByXpath("//*[text() = 'Continue']");
+                continue_el.click();
                 test();
                 return
             }
             skip_btn2.click();
+            await sleep(200);
+            const continue_el = getElementByXpath("//*[text() = 'Continue']");
+            continue_el.click();
             test();
             return
         }
         skip_btn.click();
+        await sleep(200);
+        const continue_el = getElementByXpath("//*[text() = 'Continue']");
+        continue_el.click();
         test();
         return
     }
