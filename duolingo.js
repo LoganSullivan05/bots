@@ -10,6 +10,18 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
         console.log("wrong question type");
+        if(skip_btn==null){
+            const skip_btn2 = getElementByXpath("//*[text() = 'Can't speak now']");
+            if(skip_btn2==null){
+                const skip_btn3 = getElementByXpath("//*[text() = 'Can't listen now']");
+                skip_btn3.click();
+                test();
+                return
+            }
+            skip_btn2.click();
+            test();
+            return
+        }
         skip_btn.click();
         test();
         return
