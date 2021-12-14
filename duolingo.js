@@ -4,8 +4,6 @@ function getElementByXpath(xpath){
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
-
-//question:answer
 let questions = {};
 async function test(){
     console.log("testing");
