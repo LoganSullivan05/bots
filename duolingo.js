@@ -42,9 +42,12 @@ async function test(){
     question_el.focus();
     await sleep(500);
     console.log(question_el.textContent);
-    getElementByXpath("//*[text() = 'Use keyboard']").click();
+    if(getElementByXpath("//*[text() = 'Use keyboard']")!=null){
+        getElementByXpath("//*[text() = 'Use keyboard']").click()
+    }
     await sleep(50);
-    const in_field = getElementByXpath("//*[@placeholder='Type in English']");
+    let in_field = getElementByXpath("//*[@placeholder='Type in English']");
+    if(in_field==null){in_field=getElementByXpath("//*[@placeholder='Type in German']")}
     if(questions[question_el.textContent]!=undefined){
         in_field.value = questions[question_el.textContent];
         await sleep(50);
