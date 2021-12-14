@@ -5,11 +5,26 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 let questions = {};
+const ui_el = document.createElement("div");
+const ui_el_p = document.createElement("p");
+ui_el_p.style.fontSize = "25px";
+ui_el_p.style.color = "#fff";
+ui_el.style.position = "absolute";
+ui_el.style.left = "10px";ui_el.style.top = "10px";
+ui_el.style.backgroundColor = "rgba(20,20,20,75%)";
+ui_el.style.width = "100px";
+ui_el.style.height = "300px";
+ui_el.appendChild(ui_el_p);
+document.body.appendChild(ui_el);
 async function test(){
     console.log("testing");
     await sleep(1000);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
-    if(continue_el!=null){continue_el.parentElement.click();await sleep(500)}
+    if(continue_el!=null){
+        continue_el.parentElement.click();
+        test();
+        return
+    }
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
@@ -19,7 +34,7 @@ async function test(){
             for(let j=1;j<btns.length-2;j++){
                 btns[i].click();
                 btns[j].click();
-                await sleep(50)
+                await sleep(25)
             }
         }
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
@@ -95,6 +110,7 @@ async function test(){
         if(answer.split("?").length==2){answer=answer.split("?")[0]}
         if(answer.split("!").length==2){answer=answer.split("!")[0]}
         questions[question_el.textContent] = answer;
+        ui_el_p.textContent=answer;
     }
     test();
     return
