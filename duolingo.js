@@ -10,6 +10,8 @@ let questions = {};
 async function test(){
     console.log("testing");
     await sleep(1000);
+    const continue_el = getElementByXpath("//*[text() = 'Continue']");
+    if(continue_el!=null){continue_el.click();await sleep(500)}
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
         console.log("wrong question type");
