@@ -105,8 +105,8 @@ async function test(){
         if(answer.split(".").length==2){answer=answer.split(".")[0]}
         if(answer.split("?").length==2){answer=answer.split("?")[0]}
         if(answer.split("!").length==2){answer=answer.split("!")[0]}
+        ui_el_p.textContent=question_el.textContent;
         questions[question_el.textContent] = answer;
-        ui_el_p.textContent=answer;
     }
     test();
     return
