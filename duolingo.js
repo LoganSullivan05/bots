@@ -1,0 +1,23 @@
+function getElementByXpath(xpath){
+    return document.evaluate(xpath,document,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null).singleNodeValue
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+async function test(){
+    console.log("testing");
+    await sleep(1000);
+    const skip_btn = getElementByXpath("//*[text() = 'Skip']");
+    if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
+        console.log("wrong question type");
+        skip_btn.click();
+        test();
+        return
+    }
+    const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0];
+    question_el.focus();
+    await sleep(500);
+    console.log(question_el.textContent);
+    return
+}
+test();
