@@ -56,7 +56,7 @@ async function test(){
     }
     const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0];
     const word_bank = getElementByXpath('//*[@data-test="word-bank"]').children;
-    const check_btn = document.getElementsByClassName("LhRk3 _3HhhB _2NolF _275sd _1ZefG _2orIw")[0];
+    const check_btn = getElementByXpath("//*[text() = 'Check']").parentElement;
     if(questions[question_el.textContent]!=undefined){
         await sleep(50);
         let answer_word_bank = questions[question_el.textContent].split(" ");
