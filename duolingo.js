@@ -55,8 +55,10 @@ async function test(){
         check_btn.click();
     }else{
         in_field.value = "no clue";
-        in_field.submit();
-        //check_btn.click();
+        check_btn.classList.remove("LhRk3 _3HhhB _2NolF _275sd _1ZefG _2orIw");
+        check_btn.classList.add("_3HhhB _2NolF _275sd _1ZefG _2orIw _39N6z _9C_ii");
+        await sleep(100);
+        check_btn.click();
         await sleep(200);
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         questions[question_el] = answer;
