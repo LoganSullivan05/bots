@@ -4,6 +4,9 @@ function getElementByXpath(xpath){
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+//question:answer
+let questions = {};
 async function test(){
     console.log("testing");
     await sleep(1000);
@@ -39,6 +42,24 @@ async function test(){
     question_el.focus();
     await sleep(500);
     console.log(question_el.textContent);
+    getElementByXpath("//*[text() = 'Use keyboard']").click();
+    await sleep(50);
+    const in_field = getElementByXpath("//*[@placeholder='Type in English']");
+    if(questions[question_el.textContent]!=undefined){
+        in_field.value = questions[question_el.textContent];
+        await sleep(50);
+        const check_btn = getElementByXpath("//*[text() = 'Check']");
+        check_btn.click();
+    }
+    else{
+        in_field.value = "no clue";
+        check_btn.click();
+        await sleep(200);
+        const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+        questions[question_el] = answer;
+        getElementByXpath("//*[text() = 'Continue']").click();
+    }
+    test();
     return
 }
 test();
