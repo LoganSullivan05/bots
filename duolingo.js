@@ -47,7 +47,7 @@ async function test(){
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent){
-                    word_bank[j].click();
+                    getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]').click();
                     await sleep(50);
                 }
             }
@@ -55,7 +55,7 @@ async function test(){
         await sleep(100);
         check_btn.click();
     }else{
-        word_bank[0].click();
+        getElementByXpath('//*[text() = "'+word_bank[0].textContent+'"]').click();
         await sleep(100);
         check_btn.click();
         await sleep(200);
