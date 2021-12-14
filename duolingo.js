@@ -11,8 +11,8 @@ async function test(){
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){continue_el.click();await sleep(500)}
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
+    //!crashes if its a mandatory typing question
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
-        console.log("wrong question type");
         if(skip_btn==null){
             const skip_btn2 = getElementByXpath('//*[text() = \"Can\'t speak now\"]');
             if(skip_btn2==null){
@@ -60,19 +60,17 @@ async function test(){
         check_btn.click();
         await sleep(200);
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
-        //!crashes if its correct (doesn't account for getting it right by accident)
         const parent_classList = continue_el.parentElement.classList;
         for(let i=0;i<parent_classList.length;i++){
             if(parent_classList[i]=="_9C_ii"){
-                questions[question_el] = word_bank[0].textContent;
+                questions[question_el.textContent] = word_bank[0].textContent;
                 continue_el.click();
                 test();
                 return
             }
         }
-        //word_bank[0].textContent
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
-        questions[question_el] = answer;
+        questions[question_el.textContent] = answer;
     }
     test();
     return
