@@ -9,7 +9,7 @@ async function test(){
     console.log("testing");
     await sleep(1000);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
-    if(continue_el!=null){continue_el.click();await sleep(500)}
+    if(continue_el!=null){continue_el.parentElement.click();await sleep(500)}
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
@@ -25,14 +25,14 @@ async function test(){
                 skip_btn3.click();
                 await sleep(200);
                 const continue_el = getElementByXpath("//*[text() = 'Continue']");
-                continue_el.click();
+                continue_el.parentElement.click();
                 test();
                 return
             }
             skip_btn2.click();
             await sleep(200);
             const continue_el = getElementByXpath("//*[text() = 'Continue']");
-            continue_el.click();
+            continue_el.parentElement.click();
             test();
             return
         }
