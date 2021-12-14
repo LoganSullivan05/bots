@@ -23,8 +23,10 @@ async function test(){
                 await sleep(50)
             }
         }
-        await sleep(500);
-        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+        await sleep(1000);
+        const continue_el = getElementByXpath("//*[text() = 'Continue']");
+        continue_el.parentElement.click();
+        alert(continue_el);
         test();
         return
     }
