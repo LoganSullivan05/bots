@@ -150,10 +150,9 @@ async function test(){
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent){
-                    const word_element = getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]');
-                    //!(word_element) order changes as things are clicked
-                    if(word_element!=null){word_element.click()}
-                    await sleep(500);
+                    //!(word_bank[j]) order changes as things are clicked
+                    word_bank[j].click();
+                    await sleep(300);
                 }
             }
         }
