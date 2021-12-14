@@ -71,7 +71,7 @@ async function test(){
                 return
             }
         }
-        //!answer needs to remove question mark/period
+        //!answer needs to remove commas & stuff
         let answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         if(answer.split(".").length==2){answer=answer.split(".")[0]}
         if(answer.split("?").length==2){answer=answer.split("?")[0]}
