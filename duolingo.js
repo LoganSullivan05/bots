@@ -36,12 +36,19 @@ async function test(){
             for(let i=0;i<options_el.length;i++){
                 if(options_el[i].textContent==questions[question_el.textContent]){
                     options_el[i].click();
+                    await sleep(50);
+                    getElementByXpath("//*[text() = 'Check']").parentElement.click();
+                    await sleep(50);
+                    getElementByXpath("//*[text() = 'Continue']").parentElement.click();
                     test();
                     return
                 }
             }
         }
         options_el[0].click();
+        await sleep(50);
+        getElementByXpath("//*[text() = 'Check']").parentElement.click();
+        await sleep(50);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
         if(continue_el.style.backgroundColor=="#58CC02"){
             const answer = options_el[0].textContent.split("1")[1];
@@ -63,6 +70,9 @@ async function test(){
             for(let i=0;i<options_el.length;i++){
                 if(options_el[i].textContent==questions[question_el.textContent]){
                     options_el[i].click();
+                    getElementByXpath("//*[text() = 'Check']").parentElement.click();
+                    await sleep(50);
+                    getElementByXpath("//*[text() = 'Continue']").parentElement.click();
                     test();
                     return
                 }
@@ -70,6 +80,9 @@ async function test(){
         }
         else{
             options_el[0].click();
+            await sleep(50);
+            getElementByXpath("//*[text() = 'Check']").parentElement.click();
+            await sleep(50);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
             if(continue_el.style.backgroundColor=="#58CC02"){
                 const answer = options_el[0].textContent.split("1")[1];
