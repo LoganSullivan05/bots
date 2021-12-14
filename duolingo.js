@@ -23,7 +23,7 @@ async function test(){
                 await sleep(50)
             }
         }
-        await sleep(100);
+        await sleep(500);
         continue_el.parentElement.click();
         test();
         return
