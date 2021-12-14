@@ -152,7 +152,7 @@ async function test(){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent){
                     //!(word_bank[j]) order changes as things are clicked
-                    word_bank[j].click();
+                    word_bank[j].children[0].click();
                     await sleep(300);
                 }
             }
@@ -160,7 +160,7 @@ async function test(){
         await sleep(100);
         check_btn.click();
     }else{
-        word_bank[0].click();
+        word_bank[0].children[0].click();
         await sleep(100);
         check_btn.click();
         await sleep(200);
