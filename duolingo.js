@@ -39,7 +39,7 @@ async function test(){
         skip_btn.click();
         await sleep(200);
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
-        continue_el.click();
+        continue_el.parentElement.click();
         test();
         return
     }
@@ -48,11 +48,15 @@ async function test(){
     const check_btn = document.getElementsByClassName("LhRk3 _3HhhB _2NolF _275sd _1ZefG _2orIw")[0];
     if(questions[question_el.textContent]!=undefined){
         await sleep(50);
-        const answer_word_bank = questions[question_el.textContent].split(" ");
+        let answer_word_bank = questions[question_el.textContent].split(" ");
+        for(let i=0;i<answer_word_bank.length;i++){
+            if(answer_word_bank[i].split(",").length==2){answer_word_bank[i]=answer_word_bank[i].split(",")[0]}
+        }
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent){
                     const word_element = getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]');
+                    //!(word_element) order changes as things are clicked
                     if(word_element!=null){word_element.click()}
                     await sleep(200);
                 }
