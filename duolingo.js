@@ -28,6 +28,9 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
+    if(getElementByXpath("//*[text() = 'Select the missing word']")!=null){
+        //TODO
+    }
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
         const btns = document.getElementsByTagName("button");
         for(let i=1;i<btns.length-2;i++){
@@ -68,7 +71,7 @@ async function test(){
         test();
         return
     }
-    const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0];
+    const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0].parentElement;
     const word_bank = getElementByXpath('//*[@data-test="word-bank"]').children;
     const check_btn = getElementByXpath("//*[text() = 'Check']").parentElement;
     if(questions[question_el.textContent]!=undefined){
