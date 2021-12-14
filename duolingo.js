@@ -48,7 +48,7 @@ async function test(){
         options_el[0].click();
         await sleep(50);
         getElementByXpath("//*[text() = 'Check']").parentElement.click();
-        await sleep(50);
+        await sleep(100);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
         if(continue_el.style.backgroundColor=="#58CC02"){
             const answer = options_el[0].textContent.split("1")[1];
@@ -56,12 +56,13 @@ async function test(){
             continue_el.click();
             test();
             return
+        }else{
+            const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+            questions[question_el.textContent] = answer;
+            continue_el.click();
+            test();
+            return
         }
-        const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
-        questions[question_el.textContent] = answer;
-        continue_el.click();
-        test();
-        return
     }
     if(getElementByXpath("//*[text() = 'Select the missing word']")!=null){
         const question_el = document.getElementsByClassName("_2SfAl _2Hg6H")[0];
@@ -82,7 +83,7 @@ async function test(){
             options_el[0].click();
             await sleep(50);
             getElementByXpath("//*[text() = 'Check']").parentElement.click();
-            await sleep(50);
+            await sleep(100);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
             if(continue_el.style.backgroundColor=="#58CC02"){
                 const answer = options_el[0].textContent.split("1")[1];
