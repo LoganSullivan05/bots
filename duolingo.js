@@ -59,9 +59,20 @@ async function test(){
         await sleep(100);
         check_btn.click();
         await sleep(200);
+        const continue_el = getElementByXpath("//*[text() = 'Continue']");
+        //!crashes if its correct (doesn't account for getting it right by accident)
+        const parent_classList = continue_el.parentElement.classList;
+        for(let i=0;i<parent_classList.length;i++){
+            if(parent_classList[i]=="_9C_ii"){
+                questions[question_el] = word_bank[0].textContent;
+                continue_el.click();
+                test();
+                return
+            }
+        }
+        //word_bank[0].textContent
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         questions[question_el] = answer;
-        getElementByXpath("//*[text() = 'Continue']").click();
     }
     test();
     return
