@@ -71,6 +71,7 @@ async function test(){
                 return
             }
         }
+        //!answer needs to remove question mark/period
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         questions[question_el.textContent] = answer;
     }
