@@ -48,13 +48,12 @@ async function test(){
     await sleep(50);
     let in_field = getElementByXpath("//*[@placeholder='Type in English']");
     if(in_field==null){in_field=getElementByXpath("//*[@placeholder='Type in German']")}
+    const check_btn = getElementByXpath("//*[text() = 'Check']");
     if(questions[question_el.textContent]!=undefined){
         in_field.value = questions[question_el.textContent];
         await sleep(50);
-        const check_btn = getElementByXpath("//*[text() = 'Check']");
         check_btn.click();
-    }
-    else{
+    }else{
         in_field.value = "no clue";
         check_btn.click();
         await sleep(200);
