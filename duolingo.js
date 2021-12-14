@@ -28,15 +28,62 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
-    if(getElementByXpath("//*[text() = 'Select the missing word']")!=null){
-        //TODO
-        const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0].parentElement;
+    if(getElementByXpath("//*[@data-test='challenge challenge-assist']")!=null){
+        //How do you say "term"?
+        const question_el = getElementByXpath("//*[@data-test='challenge-header']");
+        const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
-
+            for(let i=0;i<options_el.length;i++){
+                if(options_el[i].textContent==questions[question_el.textContent]){
+                    options_el[i].click();
+                    test();
+                    return
+                }
+            }
         }
-        const fake_el = getElementByXpath('//*[@data-test="word-bank"]').children;
-        ui_el_p.textContent=fake_el
+        options_el[0].click();
+        const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
+        if(continue_el.style.backgroundColor=="#58CC02"){
+            const answer = options_el[0].textContent.split("1")[1];
+            questions[question_el.textContent] = answer;
+            continue_el.click();
+            test();
+            return
+        }
+        const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+        questions[question_el.textContent] = answer;
+        continue_el.click();
+        test();
         return
+    }
+    if(getElementByXpath("//*[text() = 'Select the missing word']")!=null){
+        const question_el = document.getElementsByClassName("_2SfAl _2Hg6H")[0];
+        const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
+        if(questions[question_el.textContent]!=undefined){
+            for(let i=0;i<options_el.length;i++){
+                if(options_el[i].textContent==questions[question_el.textContent]){
+                    options_el[i].click();
+                    test();
+                    return
+                }
+            }
+        }
+        else{
+            options_el[0].click();
+            const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
+            if(continue_el.style.backgroundColor=="#58CC02"){
+                const answer = options_el[0].textContent.split("1")[1];
+                questions[question_el.textContent] = answer;
+                continue_el.click();
+                test();
+                return
+            }
+            const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+            questions[question_el.textContent] = answer;
+            continue_el.click();
+            test();
+            return
+        }
     }
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
         const btns = document.getElementsByTagName("button");
