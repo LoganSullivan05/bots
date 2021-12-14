@@ -39,30 +39,23 @@ async function test(){
         return
     }
     const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0];
-    question_el.focus();
-    await sleep(500);
-    console.log(question_el.textContent);
-    if(getElementByXpath("//*[text() = 'Use keyboard']")!=null){
-        getElementByXpath("//*[text() = 'Use keyboard']").click()
-    }
-    await sleep(50);
-    let in_field = getElementByXpath("//*[@placeholder='Type in English']");
-    if(in_field==null){in_field=getElementByXpath("//*[@placeholder='Type in German']")}
-    const check_btn = getElementByXpath("//*[text() = 'Check']");
+    const word_bank = getElementByXpath('//*[@data-test="word-bank"]').children;
+    const check_btn = document.getElementsByClassName("LhRk3 _3HhhB _2NolF _275sd _1ZefG _2orIw")[0];
     if(questions[question_el.textContent]!=undefined){
-        in_field.value = questions[question_el.textContent];
         await sleep(50);
+        const answer_word_bank = questions[question_el.textContent].split(" ");
+        for(let i=0;i<answer_word_bank.length;i++){
+            for(let j=0;j<word_bank.length;j++){
+                if(answer_word_bank[i]==word_bank[j].textContent){
+                    word_bank[j].click();
+                    await sleep(50);
+                }
+            }
+        }
+        await sleep(100);
         check_btn.click();
     }else{
-        in_field.value = "no clue";
-        const rem_classes = "LhRk3 _3HhhB _2NolF _275sd _1ZefG _2orIw".split(" ");
-        const add_classes = "_3HhhB _2NolF _275sd _1ZefG _2orIw _39N6z _9C_ii".split(" ");
-        for(let i=0;i<rem_classes.length;i++){
-            check_btn.classList.remove(rem_classes[i]);
-        }
-        for(let i=0;i<add_classes.length;i++){
-            check_btn.classList.add(add_classes[i]);
-        }
+        word_bank[0].click();
         await sleep(100);
         check_btn.click();
         await sleep(200);
