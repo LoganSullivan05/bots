@@ -50,7 +50,7 @@ async function test(){
         getElementByXpath("//*[text() = 'Check']").parentElement.click();
         await sleep(100);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
-        if(continue_el.style.backgroundColor=="#58CC02"){
+        if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
             const answer = options_el[0].textContent.split("1")[1];
             questions[question_el.textContent] = answer;
             continue_el.click();
