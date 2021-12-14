@@ -58,7 +58,7 @@ async function test(){
                     const word_element = getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]');
                     //!(word_element) order changes as things are clicked
                     if(word_element!=null){word_element.click()}
-                    await sleep(200);
+                    await sleep(500);
                 }
             }
         }
