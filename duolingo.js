@@ -18,15 +18,12 @@ async function test(){
         for(let i=1;i<btns.length-2;i++){
             for(let j=1;j<btns.length-2;j++){
                 btns[i].click();
-                await sleep(50);
                 btns[j].click();
                 await sleep(50)
             }
         }
-        await sleep(1000);
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
         continue_el.parentElement.click();
-        alert(continue_el);
         test();
         return
     }
@@ -80,7 +77,7 @@ async function test(){
     }else{
         getElementByXpath('//*[text() = "'+word_bank[0].textContent+'"]').click();
         await sleep(100);
-        check_btn.parentElement.click();
+        check_btn.click();
         await sleep(200);
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
         const parent_classList = continue_el.parentElement.classList;
