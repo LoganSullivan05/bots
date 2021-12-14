@@ -14,6 +14,7 @@ async function test(){
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
+        const btns = document.getElementsByTagName("button");
         for(let i=1;i<btns.length-2;i++){
             for(let j=1;j<btns.length-2;j++){
                 btns[i].click();
