@@ -49,11 +49,11 @@ async function test(){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent){
                     getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]').click();
-                    await sleep(100);
+                    await sleep(200);
                 }
             }
         }
-        await sleep(1000);
+        await sleep(100);
         check_btn.click();
     }else{
         getElementByXpath('//*[text() = "'+word_bank[0].textContent+'"]').click();
