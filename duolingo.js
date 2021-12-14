@@ -94,17 +94,13 @@ async function test(){
         await sleep(100);
         check_btn.click();
         await sleep(200);
-        const continue_el = getElementByXpath("//*[text() = 'Continue']");
-        const parent_classList = continue_el.parentElement.classList;
-        for(let i=0;i<parent_classList.length;i++){
-            if(parent_classList[i]=="_9C_ii"){
-                questions[question_el.textContent] = word_bank[0].textContent;
-                continue_el.click();
-                test();
-                return
-            }
+        const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
+        if(continue_el.style.backgroundColor=="#58CC02"){
+            questions[question_el.textContent] = word_bank[0].textContent;
+            continue_el.click();
+            test();
+            return
         }
-        //!answer needs to remove commas & stuff
         let answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         if(answer.split(".").length==2){answer=answer.split(".")[0]}
         if(answer.split("?").length==2){answer=answer.split("?")[0]}
