@@ -24,7 +24,7 @@ async function test(){
             }
         }
         await sleep(500);
-        continue_el.parentElement.click();
+        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
         test();
         return
     }
