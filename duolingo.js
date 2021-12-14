@@ -30,6 +30,12 @@ async function test(){
     //!doesnt account for other types of questions
     if(getElementByXpath("//*[text() = 'Select the missing word']")!=null){
         //TODO
+        const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0].parentElement;
+        if(questions[question_el.textContent]!=undefined){
+
+        }
+        const fake_el = getElementByXpath('//*[@data-test="word-bank"]').children;
+        return
     }
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
         const btns = document.getElementsByTagName("button");
