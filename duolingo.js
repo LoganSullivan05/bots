@@ -35,6 +35,7 @@ async function test(){
 
         }
         const fake_el = getElementByXpath('//*[@data-test="word-bank"]').children;
+        ui_el_p.textContent=fake_el
         return
     }
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
