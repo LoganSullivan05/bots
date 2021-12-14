@@ -72,7 +72,10 @@ async function test(){
             }
         }
         //!answer needs to remove question mark/period
-        const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+        let answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+        if(answer.split(".").length==2){answer=answer.split(".")[0]}
+        if(answer.split("?").length==2){answer=answer.split("?")[0]}
+        if(answer.split("!").length==2){answer=answer.split("!")[0]}
         questions[question_el.textContent] = answer;
     }
     test();
