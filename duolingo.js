@@ -12,6 +12,7 @@ async function test(){
     if(continue_el!=null){continue_el.click();await sleep(500)}
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
+    //!doesnt account for other types of questions
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
         if(skip_btn==null){
             const skip_btn2 = getElementByXpath('//*[text() = \"Can\'t speak now\"]');
@@ -48,7 +49,7 @@ async function test(){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent){
                     getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]').click();
-                    await sleep(50);
+                    await sleep(200);
                 }
             }
         }
