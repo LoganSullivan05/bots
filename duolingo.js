@@ -13,6 +13,10 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     //!doesnt account for other types of questions
+    if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
+        //its impossible to get these wrong (i think); just brute force btns
+        //TODO (need dev. console)
+    }
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
         if(skip_btn==null){
             const skip_btn2 = getElementByXpath('//*[text() = \"Can\'t speak now\"]');
