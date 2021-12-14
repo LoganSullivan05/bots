@@ -45,10 +45,11 @@ async function test(){
     if(questions[question_el.textContent]!=undefined){
         await sleep(50);
         const answer_word_bank = questions[question_el.textContent].split(" ");
-        for(let i=0;i<word_bank.length;i++){
-            for(let j=0;j<answer_word_bank.length;j++){
-                if(answer_word_bank[j]==word_bank[i].textContent){
-                    getElementByXpath('//*[text() = "'+word_bank[i].textContent+'"]').click();
+        for(let i=0;i<answer_word_bank.length;i++){
+            for(let j=0;j<word_bank.length;j++){
+                if(answer_word_bank[i]==word_bank[j].textContent){
+                    const word_element = getElementByXpath('//*[text() = "'+word_bank[j].textContent+'"]');
+                    if(word_element!=null){word_element.click()}
                     await sleep(200);
                 }
             }
