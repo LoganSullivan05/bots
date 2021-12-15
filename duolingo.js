@@ -4,7 +4,8 @@ function getElementByXpath(xpath){
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
-let questions = {};
+//*use "var" to evade "this variable has already been defined"
+var questions = {};
 async function test(){
     await sleep(1000);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
