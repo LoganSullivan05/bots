@@ -201,6 +201,7 @@ async function test(){
                     //!(word_bank[j]) order changes as things are clicked
                     word_bank[j].children[0].click();
                     await sleep(300);
+                    break
                 }
             }
         }
