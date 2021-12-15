@@ -6,7 +6,6 @@ function sleep(ms) {
 }
 let questions = {};
 async function test(){
-    console.log("testing");
     await sleep(1000);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
@@ -25,6 +24,7 @@ async function test(){
             for(let i=0;i<options_el.length;i++){
                 const option = options_el[i].textContent.split(toString(i+1))[1];
                 if(option==questions[question_el.textContent]){
+                    alert(i);
                     options_el[i].click();
                     await sleep(50);
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
