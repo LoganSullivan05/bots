@@ -34,7 +34,8 @@ async function test(){
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
             for(let i=0;i<options_el.length;i++){
-                if(options_el[i].textContent==questions[question_el.textContent]){
+                const option = options_el[i].textContent.split(toString(i+1))[1];
+                if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     await sleep(50);
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
@@ -69,7 +70,8 @@ async function test(){
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
             for(let i=0;i<options_el.length;i++){
-                if(options_el[i].textContent==questions[question_el.textContent]){
+                const option = options_el[i].textContent.split(toString(i+1))[1];
+                if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
                     await sleep(50);
