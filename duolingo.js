@@ -22,9 +22,10 @@ async function test(){
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
             for(let i=0;i<options_el.length;i++){
-                const option = options_el[i].textContent.split(toString(i+1))[1];
+                const splt = toString(i+1);
+                const option = options_el[i].textContent.split(splt)[1];
+                alert(questions[question_el.textContent]+"\n"+option);
                 if(option==questions[question_el.textContent]){
-                    alert(i);
                     options_el[i].click();
                     await sleep(50);
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
