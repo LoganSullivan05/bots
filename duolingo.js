@@ -44,7 +44,7 @@ async function test(){
             await sleep(100);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
             if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
-                const answer = options_el[0].textContent.split("1")[1];
+                const answer = options_el[0].textContent.split("1")[0];
                 questions[question_el.textContent] = answer;
                 continue_el.click();
                 test();
