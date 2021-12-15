@@ -191,11 +191,21 @@ async function test(){
         let answer_word_bank = questions[question_el.textContent].split(" ");
         let clicked_key = [];
         for(let i=0;i<word_bank.length;i++){clicked_key.push(false)}
+        //!doesnt account for 's (eg. That's)
         for(let i=0;i<answer_word_bank.length;i++){
             if(answer_word_bank[i].split(",").length==2){answer_word_bank[i]=answer_word_bank[i].split(",")[0]}
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
+            if(answer_word_bank[i].split("'s").length==2 && answer_word_bank[i]!="'s"){
+                answer_word_bank[i]=answer_word_bank[i].split("'s")[0];
+                let new_wb = [];
+                for(let j=0;j<answer_word_bank.length;j++){
+                    new_wb.push(answer_word_bank[j]);
+                    if(j==i){new_wb.push("'s")}
+                }
+                answer_word_bank=new_wb;
+            }
         }
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
