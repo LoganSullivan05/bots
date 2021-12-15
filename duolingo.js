@@ -201,22 +201,34 @@ async function test(){
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
-            //! add "-" (eg. great-grandmother
-            if(answer_word_bank[i].split("'s").length==2 && answer_word_bank[i]!="'s"){
-                answer_word_bank[i]=answer_word_bank[i].split("'s")[0];
+            if(answer_word_bank[i].split("'").length==2){
+                const other_half = "'"+answer_word_bank[i].split("'")[1];
+                answer_word_bank[i]=answer_word_bank[i].split("'")[0];
                 let new_wb = [];
                 //!untested
                 for(let j=0;j<answer_word_bank.length;j++){
                     new_wb.push(answer_word_bank[j]);
-                    if(j==i){new_wb.push("'s")}
+                    if(j==i){new_wb.push(other_half)}
                 }
                 answer_word_bank=new_wb;
+                i++;
+            }
+            if(answer_word_bank[i].split("-").length==2){
+                const other_half = answer_word_bank[i].split("-")[1];
+                answer_word_bank[i]=answer_word_bank[i].split("-")[0];
+                let new_wb = [];
+                //!untested
+                for(let j=0;j<answer_word_bank.length;j++){
+                    new_wb.push(answer_word_bank[j]);
+                    if(j==i){new_wb.push(other_half)}
+                }
+                answer_word_bank=new_wb;
+                i++;
             }
         }
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
                 if(answer_word_bank[i]==word_bank[j].textContent && !clicked_key[j]){
-                    //!(word_bank[j]) order changes as things are clicked
                     word_bank[j].children[0].click();
                     clicked_key[j]=true;
                     await sleep(300);
