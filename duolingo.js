@@ -15,9 +15,50 @@ async function test(){
     }
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
-    //!doesnt account for other types of questions
+    if(getElementByXpath("//*[@data-test='challenge challenge-select']")!=null){
+        //TODO: (test this part)
+        const question_el = getElementByXpath("//*[@data-test='challenge-header']");
+        const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children;
+        if(questions[question_el.textContent]!=undefined){
+            for(let i=0;i<options_el.length;i++){
+                let splt = "1";
+                switch(i){
+                    case 1:splt="2";break;
+                    case 2:splt="3";break;
+                    case 3:splt="4";break;
+                }
+                const option = options_el[i].textContent.split(splt)[0];
+                if(option==questions[question_el.textContent]){
+                    options_el[i].click();
+                    await sleep(50);
+                    getElementByXpath("//*[text() = 'Check']").parentElement.click();
+                    await sleep(50);
+                    getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+                    test();
+                    return
+                }
+            }
+            options_el[0].click();
+            await sleep(50);
+            getElementByXpath("//*[text() = 'Check']").parentElement.click();
+            await sleep(100);
+            const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
+            if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
+                const answer = options_el[0].textContent.split("1")[1];
+                questions[question_el.textContent] = answer;
+                continue_el.click();
+                test();
+                return
+            }else{
+                const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+                questions[question_el.textContent] = answer;
+                continue_el.click();
+                test();
+                return
+            }
+        }
+    }
     if(getElementByXpath("//*[@data-test='challenge challenge-assist']")!=null){
-        //How do you say "term"?
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
