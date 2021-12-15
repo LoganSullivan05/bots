@@ -29,7 +29,6 @@ async function test(){
                     case 3:splt="4";break;
                 }
                 const option = options_el[i].textContent.split(splt)[1];
-                alert(questions[question_el.textContent]+"\n"+option);
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     await sleep(50);
