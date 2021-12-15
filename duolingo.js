@@ -189,6 +189,8 @@ async function test(){
     if(questions[question_el.textContent]!=undefined){
         await sleep(50);
         let answer_word_bank = questions[question_el.textContent].split(" ");
+        let clicked_key = [];
+        for(let i=0;i<word_bank.length;i++){clicked_key.push(false)}
         for(let i=0;i<answer_word_bank.length;i++){
             if(answer_word_bank[i].split(",").length==2){answer_word_bank[i]=answer_word_bank[i].split(",")[0]}
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
@@ -197,9 +199,10 @@ async function test(){
         }
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
-                if(answer_word_bank[i]==word_bank[j].textContent){
+                if(answer_word_bank[i]==word_bank[j].textContent && !clicked_key[j]){
                     //!(word_bank[j]) order changes as things are clicked
                     word_bank[j].children[0].click();
+                    clicked_key[j]=true;
                     await sleep(300);
                     break
                 }
