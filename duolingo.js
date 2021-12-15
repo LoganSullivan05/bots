@@ -143,7 +143,7 @@ async function test(){
             }
         }
     }
-    if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
+    if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null || getElementByXpath("//*[text() = 'Match the pairs']")!=null){
         const btns = document.getElementsByTagName("button");
         for(let i=1;i<btns.length-2;i++){
             for(let j=1;j<btns.length-2;j++){
