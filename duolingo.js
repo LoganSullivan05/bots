@@ -65,7 +65,13 @@ async function test(){
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
             for(let i=0;i<options_el.length;i++){
-                const option = options_el[i].textContent.split(toString(i+1))[1];
+                let splt = "1";
+                switch(i){
+                    case 1:splt="2";break;
+                    case 2:splt="3";break;
+                    case 3:splt="4";break;
+                }
+                const option = options_el[i].textContent.split(splt)[1];
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
