@@ -47,11 +47,13 @@ async function test(){
                 const answer = options_el[0].textContent.split("1")[0];
                 questions[question_el.textContent] = answer;
                 continue_el.click();
+                alert(question_el.textContent+"\n"+answer);
                 test();
                 return
             }else{
                 const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
                 questions[question_el.textContent] = answer;
+                alert(question_el.textContent+"\n"+answer);
                 continue_el.click();
                 test();
                 return
@@ -191,6 +193,9 @@ async function test(){
         let answer_word_bank = questions[question_el.textContent].split(" ");
         for(let i=0;i<answer_word_bank.length;i++){
             if(answer_word_bank[i].split(",").length==2){answer_word_bank[i]=answer_word_bank[i].split(",")[0]}
+            if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
+            if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
+            if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
         }
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
