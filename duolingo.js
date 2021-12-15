@@ -5,17 +5,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 let questions = {};
-const ui_el = document.createElement("div");
-const ui_el_p = document.createElement("p");
-ui_el_p.style.fontSize = "25px";
-ui_el_p.style.color = "#fff";
-ui_el.style.position = "absolute";
-ui_el.style.left = "10px";ui_el.style.top = "10px";
-ui_el.style.backgroundColor = "rgba(20,20,20,75%)";
-ui_el.style.width = "100px";
-ui_el.style.height = "300px";
-ui_el.appendChild(ui_el_p);
-document.body.appendChild(ui_el);
 async function test(){
     console.log("testing");
     await sleep(1000);
@@ -178,7 +167,6 @@ async function test(){
         if(answer.split(".").length==2){answer=answer.split(".")[0]}
         if(answer.split("?").length==2){answer=answer.split("?")[0]}
         if(answer.split("!").length==2){answer=answer.split("!")[0]}
-        ui_el_p.textContent=question_el.textContent;
         questions[question_el.textContent] = answer;
     }
     test();
