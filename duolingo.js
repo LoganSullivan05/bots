@@ -48,18 +48,15 @@ async function test(){
             const answer = options_el[0].textContent.split("1")[0];
             questions[question_el.textContent] = answer;
             continue_el.click();
-            alert(question_el.textContent+"\n"+answer);
             test();
             return
         }else{
             const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
             questions[question_el.textContent] = answer;
-            alert(question_el.textContent+"\n"+answer);
             continue_el.click();
             test();
             return
         }
-        
     }
     if(getElementByXpath("//*[@data-test='challenge challenge-assist']")!=null){
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
