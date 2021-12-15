@@ -201,6 +201,7 @@ async function test(){
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
+            //! add "-" (eg. great-grandmother
             if(answer_word_bank[i].split("'s").length==2 && answer_word_bank[i]!="'s"){
                 answer_word_bank[i]=answer_word_bank[i].split("'s")[0];
                 let new_wb = [];
