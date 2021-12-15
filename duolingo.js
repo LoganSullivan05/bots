@@ -200,6 +200,7 @@ async function test(){
             if(answer_word_bank[i].split("'s").length==2 && answer_word_bank[i]!="'s"){
                 answer_word_bank[i]=answer_word_bank[i].split("'s")[0];
                 let new_wb = [];
+                //!untested
                 for(let j=0;j<answer_word_bank.length;j++){
                     new_wb.push(answer_word_bank[j]);
                     if(j==i){new_wb.push("'s")}
