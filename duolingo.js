@@ -143,6 +143,10 @@ async function test(){
             }
         }
     }
+    if(getElementByXpath("//*[text() = 'Mark the correct meaning']")!=null){
+        //TODO
+        //number is before text
+    }
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null || getElementByXpath("//*[text() = 'Match the pairs']")!=null){
         const btns = document.getElementsByTagName("button");
         for(let i=1;i<btns.length-2;i++){
