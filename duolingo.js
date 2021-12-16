@@ -6,9 +6,9 @@ function sleep(ms) {
 }
 //*use "var" to evade "this variable has already been defined"
 var questions = {};
-alert("starting bot");
+var stop = false;
 async function test(){
-    alert("testing...");
+    if(stop){return}
     await sleep(500);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
@@ -19,6 +19,7 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     if(getElementByXpath("//*[@data-test='challenge challenge-select']")!=null){
+        //TODO: (test this part)
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
@@ -243,7 +244,17 @@ async function test(){
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
-            //TODO: apostrophies (split word)
+            if(answer_word_bank[i].split("'").length==2 && answer_word_bank[i]!="don't"){
+                const other_half = "'"+answer_word_bank[i].split("'")[1];
+                answer_word_bank[i]=answer_word_bank[i].split("'")[0];
+                let new_wb = [];
+                //!untested
+                for(let j=0;j<answer_word_bank.length;j++){
+                    new_wb.push(answer_word_bank[j]);
+                    if(j==i){new_wb.push(other_half)}
+                }
+                answer_word_bank=new_wb;
+                i++;
             }
             if(answer_word_bank[i].split("-").length==2){
                 const other_half = answer_word_bank[i].split("-")[1];
