@@ -6,11 +6,9 @@ function sleep(ms) {
 }
 //*use "var" to evade "this variable has already been defined"
 var questions = {};
-var stopped = false;
+alert("starting bot");
 async function test(){
     alert("testing...");
-    if(stopped){return}
-    alert("testing");
     await sleep(500);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
@@ -21,7 +19,6 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     if(getElementByXpath("//*[@data-test='challenge challenge-select']")!=null){
-        //TODO: (test this part)
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
