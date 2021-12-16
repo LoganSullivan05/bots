@@ -146,7 +146,48 @@ async function test(){
     }
     if(getElementByXpath("//*[text() = 'Mark the correct meaning']")!=null){
         //TODO
-        //number is before text
+        const question_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children[0];
+        const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
+        if(questions[question_el.textContent]!=undefined){
+            for(let i=0;i<options_el.length;i++){
+                let splt = "1";
+                switch(i){
+                    case 1:splt="2";break;
+                    case 2:splt="3";break;
+                    case 3:splt="4";break;
+                }
+                const option = options_el[i].textContent.split(splt)[1];
+                if(option==questions[question_el.textContent]){
+                    options_el[i].click();
+                    getElementByXpath("//*[text() = 'Check']").parentElement.click();
+                    await sleep(50);
+                    getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+                    test();
+                    return
+                }
+            }
+        }
+        else{
+            options_el[0].click();
+            await sleep(50);
+            getElementByXpath("//*[text() = 'Check']").parentElement.click();
+            await sleep(100);
+            const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
+            if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
+                const answer = options_el[0].textContent.split("1")[1];
+                questions[question_el.textContent] = answer;
+                continue_el.click();
+                test();
+                return
+            }else{
+                const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+                questions[question_el.textContent] = answer;
+                continue_el.click();
+                test();
+                return
+            }
+        }
+        
     }
     if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null || getElementByXpath("//*[text() = 'Match the pairs']")!=null){
         const btns = document.getElementsByTagName("button");
@@ -196,13 +237,12 @@ async function test(){
         let answer_word_bank = questions[question_el.textContent].split(" ");
         let clicked_key = [];
         for(let i=0;i<word_bank.length;i++){clicked_key.push(false)}
-        //!doesnt account for 's (eg. That's)
         for(let i=0;i<answer_word_bank.length;i++){
             if(answer_word_bank[i].split(",").length==2){answer_word_bank[i]=answer_word_bank[i].split(",")[0]}
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
-            if(answer_word_bank[i].split("'").length==2){
+            if(answer_word_bank[i].split("'").length==2 && answer_word_bank[i].split("'")[1]!="t"){
                 const other_half = "'"+answer_word_bank[i].split("'")[1];
                 answer_word_bank[i]=answer_word_bank[i].split("'")[0];
                 let new_wb = [];
