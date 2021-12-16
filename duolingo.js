@@ -9,7 +9,7 @@ var questions = {};
 var stop = false;
 async function test(){
     if(stop){return}
-    await sleep(500);
+    await sleep(300);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
         continue_el.parentElement.click();
@@ -244,17 +244,23 @@ async function test(){
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
-            if(answer_word_bank[i].split("'").length==2 && answer_word_bank[i]!="don't"){
-                const other_half = "'"+answer_word_bank[i].split("'")[1];
-                answer_word_bank[i]=answer_word_bank[i].split("'")[0];
-                let new_wb = [];
-                //!untested
-                for(let j=0;j<answer_word_bank.length;j++){
-                    new_wb.push(answer_word_bank[j]);
-                    if(j==i){new_wb.push(other_half)}
+            if(answer_word_bank[i].split("'").length==2){
+                let split = ["",""];
+                switch(answer_word_bank[i]){
+                    case:"doesn't":split=["does","n't"];break;
+                    case:"they're":split=["they","'re"];break;
+                    //find more exceptions
                 }
-                answer_word_bank=new_wb;
-                i++;
+                if(split[0]!=""){
+                    answer_word_bank[i]=split[0];
+                    let new_wb = [];
+                    for(let j=0;j<answer_word_bank.length;j++){
+                        new_wb.push(answer_word_bank[j]);
+                        if(j==i){new_wb.push(split[1])}
+                    }
+                    answer_word_bank=new_wb;
+                    i++;
+                }
             }
             if(answer_word_bank[i].split("-").length==2){
                 const other_half = answer_word_bank[i].split("-")[1];
