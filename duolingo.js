@@ -6,9 +6,11 @@ function sleep(ms) {
 }
 //*use "var" to evade "this variable has already been defined"
 var questions = {};
-var stop = false;
+var stopped = false;
 async function test(){
-    if(stop){return}
+    alert("testing...");
+    if(stopped){return}
+    alert("testing");
     await sleep(500);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
