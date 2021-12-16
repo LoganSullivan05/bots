@@ -7,7 +7,7 @@ function sleep(ms) {
 //*use "var" to evade "this variable has already been defined"
 var questions = {};
 async function test(){
-    await sleep(1000);
+    await sleep(500);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
         continue_el.parentElement.click();
