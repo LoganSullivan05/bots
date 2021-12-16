@@ -9,7 +9,7 @@ var questions = {};
 var stop = false;
 async function test(){
     if(stop){return}
-    await sleep(300);
+    await sleep(500);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
         continue_el.parentElement.click();
@@ -244,6 +244,7 @@ async function test(){
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
+            alert(answer_word_bank[i]);
             if(answer_word_bank[i].split("'").length==2){
                 let split = ["",""];
                 switch(answer_word_bank[i]){
