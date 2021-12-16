@@ -9,7 +9,7 @@ var questions = {};
 var stop = false;
 async function test(){
     if(stop){return}
-    await sleep(500);
+    await sleep(300);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
         continue_el.parentElement.click();
