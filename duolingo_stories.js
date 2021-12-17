@@ -19,6 +19,6 @@ async function test(){
     }
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){continue_el.parentElement.click()}
-    test();
+    test();return
 }
 test();
