@@ -14,10 +14,9 @@ async function test(){
             for(let j=0;i<btns.length;j++){
                 await sleep(200);btns[i].click();
                 await sleep(200);btns[j].click();
-                btns = document.getElementsByTagName("button")
             }
         }
-    }catch{}
+    }catch{alert("err")}
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){continue_el.parentElement.click()}
     test();
