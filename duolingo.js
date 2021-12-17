@@ -244,7 +244,7 @@ async function test(){
             if(answer_word_bank[i].split("!").length==2){answer_word_bank[i]=answer_word_bank[i].split("!")[0]}
             if(answer_word_bank[i].split("?").length==2){answer_word_bank[i]=answer_word_bank[i].split("?")[0]}
             if(answer_word_bank[i].split(".").length==2){answer_word_bank[i]=answer_word_bank[i].split(".")[0]}
-            if(answer_word_bank[i].split("'").length==2 && answer_word_bank[i]!="don't"){
+            if(answer_word_bank[i].split("'").length==2 && answer_word_bank[i]!="don't" && answer_word_bank[i]!="Don't"){
                 const other_half = "'"+answer_word_bank[i].split("'")[1];
                 answer_word_bank[i]=answer_word_bank[i].split("'")[0];
                 let new_wb = [];
