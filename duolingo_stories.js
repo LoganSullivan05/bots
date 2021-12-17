@@ -9,11 +9,12 @@ async function test(){
   if(stop){return}
   await sleep(500);
   const btns = document.getElementsByTagName("button");
-  alert(btns.length);
-  for(let i=1;i<btns.length;i++){
+  for(let i=0;i<btns.length;i++){
     btns[i].click();
     await sleep(25)
   }
+  const continue_el = getElementByXpath("//*[text() = 'Continue']");
+  if(continue_el!=null){continue_el.parentElement.click()}
   test();
   return
 }
