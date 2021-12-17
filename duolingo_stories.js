@@ -17,6 +17,7 @@ async function test(){
   */
   const btns = document.getElementsByTagName("button");
   for(let i=1;i<btns.length;i++){
+    alert(btns[i].textContent);
     btns[i].click();
     await sleep(25)
   }
