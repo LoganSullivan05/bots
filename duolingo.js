@@ -9,7 +9,7 @@ var questions = {};
 var stop = false;
 async function test(){
     if(stop){return}
-    await sleep(300);
+    await sleep(500);
     const continue_el = getElementByXpath("//*[text() = 'Continue']");
     if(continue_el!=null){
         continue_el.parentElement.click();
@@ -33,9 +33,9 @@ async function test(){
                 const option = options_el[i].textContent.split(splt)[0];
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
-                    await sleep(50);
+                    await sleep(100);
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
-                    await sleep(50);
+                    await sleep(200);
                     getElementByXpath("//*[text() = 'Continue']").parentElement.click();
                     test();
                     return
@@ -43,7 +43,7 @@ async function test(){
             }
         }
         options_el[0].click();
-        await sleep(50);
+        await sleep(100);
         getElementByXpath("//*[text() = 'Check']").parentElement.click();
         await sleep(100);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
@@ -75,9 +75,9 @@ async function test(){
                 const option = options_el[i].textContent.split(splt)[1];
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
-                    await sleep(50);
+                    await sleep(100);
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
-                    await sleep(50);
+                    await sleep(100);
                     getElementByXpath("//*[text() = 'Continue']").parentElement.click();
                     test();
                     return
@@ -85,7 +85,7 @@ async function test(){
             }
         }
         options_el[0].click();
-        await sleep(50);
+        await sleep(100);
         getElementByXpath("//*[text() = 'Check']").parentElement.click();
         await sleep(100);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
@@ -118,7 +118,7 @@ async function test(){
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
-                    await sleep(50);
+                    await sleep(100);
                     getElementByXpath("//*[text() = 'Continue']").parentElement.click();
                     test();
                     return
@@ -127,7 +127,7 @@ async function test(){
         }
         else{
             options_el[0].click();
-            await sleep(50);
+            await sleep(100);
             getElementByXpath("//*[text() = 'Check']").parentElement.click();
             await sleep(100);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
@@ -162,7 +162,7 @@ async function test(){
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     getElementByXpath("//*[text() = 'Check']").parentElement.click();
-                    await sleep(50);
+                    await sleep(100);
                     getElementByXpath("//*[text() = 'Continue']").parentElement.click();
                     test();
                     return
@@ -171,9 +171,9 @@ async function test(){
         }
         else{
             options_el[0].click();
-            await sleep(50);
+            await sleep(100);
             getElementByXpath("//*[text() = 'Check']").parentElement.click();
-            await sleep(50);
+            await sleep(100);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
             if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
                 const answer = options_el[0].textContent.split("1")[1];
@@ -211,21 +211,21 @@ async function test(){
             if(skip_btn2==null){
                 const skip_btn3 = getElementByXpath('//*[text() = \"Can\'t listen now\"]');
                 skip_btn3.click();
-                await sleep(50);
+                await sleep(200);
                 const continue_el = getElementByXpath("//*[text() = 'Continue']");
                 continue_el.parentElement.click();
                 test();
                 return
             }
             skip_btn2.click();
-            await sleep(50);
+            await sleep(200);
             const continue_el = getElementByXpath("//*[text() = 'Continue']");
             continue_el.parentElement.click();
             test();
             return
         }
         skip_btn.click();
-        await sleep(50);
+        await sleep(200);
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
         continue_el.parentElement.click();
         test();
@@ -235,7 +235,7 @@ async function test(){
     const word_bank = getElementByXpath('//*[@data-test="word-bank"]').children;
     const check_btn = getElementByXpath("//*[text() = 'Check']").parentElement;
     if(questions[question_el.textContent]!=undefined){
-        await sleep(50);
+        await sleep(100);
         let answer_word_bank = questions[question_el.textContent].split(" ");
         let clicked_key = [];
         for(let i=0;i<word_bank.length;i++){clicked_key.push(false)}
@@ -274,7 +274,7 @@ async function test(){
                 if(answer_word_bank[i]==word_bank[j].textContent && !clicked_key[j]){
                     word_bank[j].children[0].click();
                     clicked_key[j]=true;
-                    await sleep(200);
+                    await sleep(300);
                     break
                 }
             }
@@ -283,9 +283,9 @@ async function test(){
         check_btn.click();
     }else{
         word_bank[0].children[0].click();
-        await sleep(50);
+        await sleep(200);
         check_btn.click();
-        await sleep(50);
+        await sleep(200);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
         if(continue_el.style.backgroundColor=="#58CC02"){
             questions[question_el.textContent] = word_bank[0].textContent;
