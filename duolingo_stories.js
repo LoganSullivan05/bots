@@ -14,7 +14,6 @@ async function test(){
             for(let j=0;i<btns.length;j++){
                 btns[i].click();
                 btns[j].click();
-                alert(1);
                 await sleep(25)
             }
         }
