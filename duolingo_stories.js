@@ -8,12 +8,13 @@ var stop = false;
 async function test(){
     if(stop){return}
     await sleep(500);
-    const btns = document.getElementsByTagName("button");
     try{
+        let btns = document.getElementsByTagName("button");
         for(let i=0;i<btns.length;i++){
             for(let j=0;i<btns.length;j++){
                 await sleep(200);btns[i].click();
-                await sleep(200);btns[j].click()
+                await sleep(200);btns[j].click();
+                btns = document.getElementsByTagName("button")
             }
         }
     }catch{}
