@@ -12,8 +12,8 @@ async function test(){
     try{
         for(let i=0;i<btns.length;i++){
             for(let j=0;i<btns.length;j++){
-                await sleep(300);btns[i].click();
-                await sleep(50);btns[j].click()
+                await sleep(200);btns[i].click();
+                await sleep(200);btns[j].click()
             }
         }
     }catch{}
