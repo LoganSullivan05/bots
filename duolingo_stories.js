@@ -12,9 +12,10 @@ async function test(){
     if(getElementByXpath("//*[text() = 'matching']")!=null){
         for(let i=0;i<btns.length;i++){
             for(let j=0;i<btns.length;j++){
-            btns[i].click();
-            btns[j].click();
-            await sleep(25)
+                btns[i].click();
+                btns[j].click();
+                await sleep(25)
+            }
         }
     }
     else{
