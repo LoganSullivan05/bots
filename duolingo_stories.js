@@ -8,16 +8,9 @@ var stop = false;
 async function test(){
   if(stop){return}
   await sleep(500);
-    /*
-  const continue_el = getElementByXpath("//*[text() = 'Continue']");
-  if(continue_el!=null){
-    continue_el.parentElement.click();
-    test();return
-  }
-  */
   const btns = document.getElementsByTagName("button");
+  alert(btns.length);
   for(let i=1;i<btns.length;i++){
-    alert(btns[i].textContent);
     btns[i].click();
     await sleep(25)
   }
