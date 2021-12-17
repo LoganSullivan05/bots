@@ -9,7 +9,7 @@ async function test(){
     if(stop){return}
     await sleep(500);
     const btns = document.getElementsByTagName("button");
-    if(getElementByXpath("//*[text() = 'Select the matching pairs']")!=null){
+    if(getElementByXpath("//*[text() = 'matching']")!=null){
         for(let i=0;i<btns.length;i++){
             for(let j=0;i<btns.length;j++){
                 btns[i].click();
