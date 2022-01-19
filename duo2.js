@@ -302,7 +302,7 @@ async function test(){
                     if(letter==lowers.charAt(i)){index=i;break}
                 }
                 other_case = uppers.charAt(index) + ord;
-                if(isUpper){word = lowers.charAt(index) + ord}
+                if(isUpper){other_case = lowers.charAt(index) + ord}
                 if(answer_word_bank[i]==word_bank[j].textContent && !clicked_key[j]){
                     word_bank[j].children[0].click();
                     clicked_key[j]=true;
