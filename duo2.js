@@ -212,7 +212,7 @@ async function test(){
         //setting value doesn't make the continue element clickable (?edit CSS?)
         getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
         await sleep(2000);
-        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+        getElementByXpath("//*[text() = 'Check']").parentElement.click();
         test();return
       }
       else{
