@@ -6,6 +6,7 @@ function sleep(ms) {
 }
 //*use "var" to evade "this variable has already been defined"
 var questions = {};
+var written_questions = {};
 var stop = false;
 async function test(){
     if(stop){return}
@@ -207,22 +208,21 @@ async function test(){
     if(getElementByXpath("//*[@placeholder = 'Type in English']")!=null){
         const input_el = getElementByXpath("//*[@placeholder = 'Type in English']");
         const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0].parentElement;
-        if(questions[question_el.textContent]!=undefined){
-        const answer = questions[question_el.textContent];
-        //setting value doesn't make the continue element clickable (?edit CSS?)
-        getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
-        await sleep(2000);
-        getElementByXpath("//*[text() = 'Check']").parentElement.click();
-        test();return
+        if(written_questions[question_el.textContent]!=undefined){
+            const answer = written_questions[question_el.textContent];
+            //setting value doesn't make the continue element clickable (?edit CSS?)
+            getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
+            await sleep(2000);
+            getElementByXpath("//*[text() = 'Check']").parentElement.click();
+            test();return
       }
       else{
         getElementByXpath("//*[text() = 'Skip']").parentElement.click();
         await sleep(50);
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
-        questions[question_el.textContent] = answer;
+        written_questions[question_el.textContent] = answer;
         getElementByXpath("//*[text() = 'Continue']").parentElement.click();
         test();return
-        
       }
     }
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
