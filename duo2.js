@@ -19,7 +19,6 @@ async function test(){
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
     //!crashes if its a mandatory typing question
     if(getElementByXpath("//*[@data-test='challenge challenge-select']")!=null){
-        //TODO: (test this part)
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
@@ -148,7 +147,6 @@ async function test(){
         }
     }
     if(getElementByXpath("//*[text() = 'Mark the correct meaning']")!=null){
-        //TODO
         const question_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children[0];
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
@@ -208,13 +206,12 @@ async function test(){
     }
     if(getElementByXpath("//*[@placeholder = 'Type in English']")!=null){
         const input_el = getElementByXpath("//*[@placeholder = 'Type in English']");
-        //TODO: get question (this is the header; "Write this in English")
-        const question_el = getElementByXpath("//*[@data-test='challenge-header']");
+        const question_el = document.getElementsByClassName("_34k_q _3Lg1h _13doy")[0].parentElement;
         if(questions[question_el.textContent]!=undefined){
         const answer = questions[question_el.textContent];
         //setting value doesn't make the continue element clickable (?edit CSS?)
         getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
-        await sleep(100);
+        await sleep(2000);
         getElementByXpath("//*[text() = 'Continue']").parentElement.click();
         test();return
       }
