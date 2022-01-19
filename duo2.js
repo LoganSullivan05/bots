@@ -208,6 +208,24 @@ async function test(){
     }
     if(getElementByXpath("//*[@placeholder = 'Type in English']")!=null){
       alert("type in english");
+      //guessing this is the input el
+      const input_el = getElementByXpath("//*[@placeholder = 'Type in English']");
+      const question_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children[0];
+      if(questions[question_el.textContent]!=undefined){
+        const answer = questions[question_el.textContent];
+        getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
+        await sleep(100);
+        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+        test();return
+      }
+      else{
+        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+        await sleep(50);
+        const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+        questions[question_el.textContent] = answer;
+        test();return
+        
+      }
     }
     if(getElementByXpath("//*[@data-test='challenge challenge-translate']")==null){
         if(skip_btn==null){
