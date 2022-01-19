@@ -255,7 +255,7 @@ async function test(){
     const word_bank = getElementByXpath('//*[@data-test="word-bank"]').children;
     const check_btn = getElementByXpath("//*[text() = 'Check']").parentElement;
     if(questions[question_el.textContent]!=undefined){
-        await sleep(100);
+        await sleep(50);
         let answer_word_bank = questions[question_el.textContent].split(" ");
         let clicked_key = [];
         for(let i=0;i<word_bank.length;i++){clicked_key.push(false)}
@@ -291,11 +291,23 @@ async function test(){
         }
         for(let i=0;i<answer_word_bank.length;i++){
             for(let j=0;j<word_bank.length;j++){
-                if(answer_word_bank[i]==word_bank[j].textContent && !clicked_key[j]){
+                let other_case = answer_word_bank[i];
+                const letter = answer_word_bank[i].charAt(0);
+                const uppers = "QWERTYUIOPASDFGHJKLZXCVBNM";
+                const lowers = "qwertyuiopasdfghjklzxcvbnm";
+                let index = 0, isUpper = false;
+                let ord = answer_word_bank[i].substring(1);
+                for(let i=0;i<uppers.length;i++){
+                    if(letter==uppers.charAt(i)){isUpper=true;index=i;break}
+                    if(letter==lowers.charAt(i)){index=i;break}
+                }
+                other_case = uppers.charAt(index);
+                if(isUpper){word = lowers.charAt(index) + ord}
+                if((answer_word_bank[i]==word_bank[j].textContent
+                || other_case==word_bank[j].textContent) && !clicked_key[j]){
                     word_bank[j].children[0].click();
                     clicked_key[j]=true;
-                    await sleep(300);
-                    break
+                    await sleep(300);break
                 }
             }
         }
