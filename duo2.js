@@ -207,11 +207,10 @@ async function test(){
         return
     }
     if(getElementByXpath("//*[@placeholder = 'Type in English']")!=null){
-      alert("type in english");
       //guessing this is the input el
-      const input_el = getElementByXpath("//*[@placeholder = 'Type in English']");
-      const question_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children[0];
-      if(questions[question_el.textContent]!=undefined){
+        const input_el = getElementByXpath("//*[@placeholder = 'Type in English']");
+        const question_el = getElementByXpath("//*[@data-test='challenge-header']");
+        if(questions[question_el.textContent]!=undefined){
         const answer = questions[question_el.textContent];
         getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
         await sleep(100);
