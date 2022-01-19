@@ -207,11 +207,12 @@ async function test(){
         return
     }
     if(getElementByXpath("//*[@placeholder = 'Type in English']")!=null){
-      //guessing this is the input el
         const input_el = getElementByXpath("//*[@placeholder = 'Type in English']");
+        //TODO: get question (this is the header; "Write this in English")
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         if(questions[question_el.textContent]!=undefined){
         const answer = questions[question_el.textContent];
+        //setting value doesn't make the continue element clickable (?edit CSS?)
         getElementByXpath("//*[@placeholder = 'Type in English']").value = answer;
         await sleep(100);
         getElementByXpath("//*[text() = 'Continue']").parentElement.click();
