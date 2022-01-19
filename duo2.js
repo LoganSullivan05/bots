@@ -303,8 +303,12 @@ async function test(){
                 }
                 other_case = uppers.charAt(index) + ord;
                 if(isUpper){word = lowers.charAt(index) + ord}
-                if((answer_word_bank[i]==word_bank[j].textContent
-                || other_case==word_bank[j].textContent) && !clicked_key[j]){
+                if(answer_word_bank[i]==word_bank[j].textContent && !clicked_key[j]){
+                    word_bank[j].children[0].click();
+                    clicked_key[j]=true;
+                    await sleep(300);break
+                }
+                if(other_case==word_bank[j].textContent && !clicked_key[j]){
                     word_bank[j].children[0].click();
                     clicked_key[j]=true;
                     await sleep(300);break
@@ -322,8 +326,7 @@ async function test(){
         if(continue_el.style.backgroundColor=="#58CC02"){
             questions[question_el.textContent] = word_bank[0].textContent;
             continue_el.click();
-            test();
-            return
+            test();return
         }
         let answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         if(answer.split(".").length==2){answer=answer.split(".")[0]}
