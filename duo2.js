@@ -219,10 +219,11 @@ async function test(){
         test();return
       }
       else{
-        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
+        getElementByXpath("//*[text() = 'Skip']").parentElement.click();
         await sleep(50);
         const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
         questions[question_el.textContent] = answer;
+        getElementByXpath("//*[text() = 'Continue']").parentElement.click();
         test();return
         
       }
