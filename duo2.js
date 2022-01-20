@@ -64,7 +64,6 @@ async function test(){
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
-            alert(1);
             for(let i=0;i<options_el.length;i++){
                 let splt = "1";
                 switch(i){
@@ -72,8 +71,7 @@ async function test(){
                     case 2:splt="3";break;
                     case 3:splt="4";break;
                 }
-                const option = options_el[i]
-                textContent.split(splt)[1];
+                const option = options_el[i].textContent.split(splt)[1];
                 if(option==questions[question_el.textContent]){
                     options_el[i].click();
                     await sleep(100);
