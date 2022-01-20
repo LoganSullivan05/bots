@@ -18,7 +18,6 @@ async function test(){
         return
     }
     const skip_btn = getElementByXpath("//*[text() = 'Skip']");
-    //!crashes if its a mandatory typing question
     if(getElementByXpath("//*[@data-test='challenge challenge-select']")!=null){
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.parentElement.children;
@@ -65,6 +64,7 @@ async function test(){
         const question_el = getElementByXpath("//*[@data-test='challenge-header']");
         const options_el = getElementByXpath("//*[text() = '1']").parentElement.parentElement.children;
         if(questions[question_el.textContent]!=undefined){
+            alert(1);
             for(let i=0;i<options_el.length;i++){
                 let splt = "1";
                 switch(i){
