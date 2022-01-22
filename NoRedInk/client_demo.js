@@ -4,6 +4,50 @@ function sleep(ms) {
 function getElementByXpath(xpath){
     return document.evaluate(xpath,document,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null).singleNodeValue
 }
+//for https://www.noredink.com/learn/quiz/837099871
+async function setInterests(){
+    const interests = ["Never Have I Ever","JoJo's Bizarre Adventure","Moxie","Black-ish","Riverdale","Runaways"];
+    const interest_win = window.open("https://www.noredink.com/learn/interests");
+    while(interest_win.document.getElementsByClassName("_5a0df8a").length==0){
+        console.log(interest_win.document);
+        await sleep(500);
+    }
+    const selected_els = interest_win.document.getElementsByClassName("_5a0df8a")[0].children
+    console.log(selected_els);
+    let topics_correct = false;
+    if(selected_els.length==interests.length){
+        for(let i=0;i<selected_els.length;i++){
+            let acceptable = false;
+            for(let j=0;j<interests.length;j++){
+                if(selected_els[i].textContent==interests[j]){acceptable=true}
+            }
+            if(!acceptable){break}
+            if(i==selected_els.length-1){topics_correct=true}
+        }
+    }
+    function i_getElementByXpath(xpath){
+        return interest_win.document.evaluate(xpath,interest_win.document,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null).singleNodeValue
+    }
+    console.log(topics_correct);
+    if(!topics_correct){
+        console.log("Removing old interests...");
+        while(interest_win.document.getElementsByClassName("_50635f19").length!=0){
+            interest_win.document.getElementsByClassName("_50635f19")[0].click();
+            await sleep(50);
+        }
+        console.log("Setting new interests...");
+        for(let i=0;i<interests.length;i++){
+            const xpath = '//*[text() = "'+interests[i]+'"]';
+            i_getElementByXpath(xpath).click();
+            await sleep(50);
+        }
+    }
+    i_getElementByXpath('//*[text() = "Continue"]').click()
+    await sleep(50);
+    console.log("Interests set");
+    interest_win.close();
+}
+setInterests();
 const url = "https://log-log-log.github.io/bots/NoRedInk/data/773_931.json";
 var data,elm_data;
 async function main(){
