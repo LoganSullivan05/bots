@@ -37,6 +37,7 @@ xhr.onreadystatechange = e=>{
         const doc = document.createElement("div");
         doc.innerHTML = xhr.responseText;
         const elements = doc.getElementsByClassName("SetPageTerm-content").length;
+        alert(elements);
         for(let i=0;i<elements.length;i++){
             const terms = elements.getElementsByClassName("TermText notranslate");
             alert(terms[0].textContent);
