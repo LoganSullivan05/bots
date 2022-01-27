@@ -21,10 +21,10 @@ function answer(){
                 if(l1_terms[question]==sections[i].textContent){sections[i].click()}
             }
         }
-        if(i==11){
+        if(i==10){
             /*5 Matching terms*/
         }
-        if(i>11){
+        if(i>10){
             //write the answer
             const question = container.getElementsByClassName("FormattedText notranslate")[0].textContent;
             const answer = l0_terms[question]!=undefined ? l0_terms[question] : l1_terms[question];
