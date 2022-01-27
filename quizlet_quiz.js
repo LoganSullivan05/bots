@@ -27,8 +27,8 @@ function answer(){
             for(let i=0;i<5;i++){
                 const q = terms[i].textContent;
                 for(let j=5;j<10;j++){
-                    if(terms[j].textContent==l0_terms[q]){terms[j].click()}
-                    if(terms[j].textContent==l1_terms[q]){terms[j].click()}
+                    if(terms[j].textContent==l0_terms[q]){terms[j].click();break}
+                    if(terms[j].textContent==l1_terms[q]){terms[j].click();break}
                 }
             }
         }
