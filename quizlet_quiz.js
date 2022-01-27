@@ -2,7 +2,6 @@ const URL = window.location.href;
 const answer_page = URL.split("test")[0];
 let l0_terms = {},l1_terms = {};
 function answer(){
-    for(i in l0_terms){alert(i)}
     //16 articles; 1 contains 5 questions (matching)
     const question_containers = document.getElementsByTagName("article");
     for(let i=0;i<question_containers.length;i++){
@@ -10,8 +9,8 @@ function answer(){
         if(i<5){
             const terms = container.getElementsByClassName("FormattedText notranslate");
             const sections = container.getElementsByTagName("section");
-            if(l0_terms[terms[0].textContent]==l1_terms[terms[1].textContent]
-            || l1_terms[terms[0].textContent]==l0_terms[terms[1].textContent]){
+            if(l0_terms[terms[0].textContent]==terms[1].textContent
+            || l1_terms[terms[0].textContent]==terms[1].textContent){
                 sections[sections.length-1].click();
             }else{sections[sections.length-2].click()}
         }else if(i<10){
@@ -39,7 +38,6 @@ xhr.onreadystatechange = e=>{
         const elements = doc.getElementsByClassName("SetPageTerm-content");
         for(let i=0;i<elements.length;i++){
             const terms = elements[i].getElementsByClassName("TermText notranslate");
-            //alert(terms);
             l0_terms[terms[0].textContent] = terms[1].textContent;
             l1_terms[terms[1].textContent] = terms[0].textContent;
         }
