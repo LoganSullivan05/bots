@@ -1,7 +1,7 @@
 const URL = window.location.href;
 const answer_page = URL.split("test")[0];
 let l0_terms = {},l1_terms = {};
-function answer(){
+async function answer(){
     //16 articles; 1 contains 5 questions (matching)
     const question_containers = document.getElementsByTagName("article");
     for(let i=0;i<question_containers.length;i++){
@@ -24,9 +24,11 @@ function answer(){
         if(i==10){
             /*5 Matching terms*/
             const terms = container.getElementsByClassName("FormattedText notranslate");
+            const questions = [];
+            for(let i=0;i<5;i++){questions.push(terms[i].textContent)}
             for(let i=0;i<5;i++){
-                const q = terms[i].textContent;
-                for(let j=5;j<10;j++){
+                const q = questions[i];
+                for(let j=5;j<terms.length;j++){
                     if(terms[j].textContent==l0_terms[q]){terms[j].click();break}
                     if(terms[j].textContent==l1_terms[q]){terms[j].click();break}
                 }
