@@ -39,7 +39,7 @@ xhr.onreadystatechange = e=>{
         const elements = doc.getElementsByClassName("SetPageTerm-content").length;
         alert(elements);
         for(let i=0;i<elements.length;i++){
-            const terms = elements.getElementsByClassName("TermText notranslate");
+            const terms = elements[i].getElementsByClassName("TermText notranslate");
             alert(terms[0].textContent);
             l0_terms[terms[0].textContent] = terms[1].textContent;
             l1_terms[terms[1].textContent] = terms[0].textContent;
