@@ -11,8 +11,8 @@ function answer(){
             const sections = container.getElementsByTagName("section");
             if(l0_terms[terms[0].textContent]==terms[1].textContent
             || l1_terms[terms[0].textContent]==terms[1].textContent){
-                sections[sections.length-1].click();
-            }else{sections[sections.length-2].click()}
+                sections[sections.length-2].click();
+            }else{sections[sections.length-1].click()}
         }else if(i<10){
             const sections = container.getElementsByTagName("section");
             const question = document.getElementsByClassName("FormattedText notranslate")[0].textContent;
