@@ -15,7 +15,7 @@ function answer(){
             }else{sections[sections.length-1].click()}
         }else if(i<10){
             const sections = container.getElementsByTagName("section");
-            const question = document.getElementsByClassName("FormattedText notranslate")[0].textContent;
+            const question = container.getElementsByClassName("FormattedText notranslate")[0].textContent;
             for(let i=0;i<sections.length;i++){
                 if(l0_terms[question]==sections[i].textContent){sections[i].click()}
                 if(l1_terms[question]==sections[i].textContent){sections[i].click()}
