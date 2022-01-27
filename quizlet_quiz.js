@@ -2,8 +2,7 @@ const URL = window.location.href;
 const answer_page = URL.split("test")[0];
 let l0_terms = {},l1_terms = {};
 function answer(){
-    alert("l0: ");
-    alert(l0_terms);
+    for(i in l0_terms){alert(i)}
     //16 articles; 1 contains 5 questions (matching)
     const question_containers = document.getElementsByTagName("article");
     for(let i=0;i<question_containers.length;i++){
@@ -43,7 +42,6 @@ xhr.onreadystatechange = e=>{
             l0_terms[terms[0].textContent] = terms[1].textContent;
             l1_terms[terms[1].textContent] = terms[0].textContent;
         }
-        alert(l0_terms);
         answer();
     }
 }
