@@ -23,6 +23,14 @@ function answer(){
         }
         if(i==10){
             /*5 Matching terms*/
+            const terms = container.getElementsByClassName("FormattedText notranslate");
+            for(let i=0;i<5;i++){
+                const q = terms[i].textContent;
+                for(let j=5;j<10;j++){
+                    if(terms[j].textContent==l0_terms[q]){terms[j].click()}
+                    if(terms[j].textContent==l1_terms[q]){terms[j].click()}
+                }
+            }
         }
         if(i>10){
             //write the answer
