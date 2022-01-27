@@ -36,11 +36,10 @@ xhr.onreadystatechange = e=>{
     if(xhr.readyState==4){
         const doc = document.createElement("div");
         doc.innerHTML = xhr.responseText;
-        const elements = doc.getElementsByClassName("SetPageTerm-content").length;
-        alert(elements);
+        const elements = doc.getElementsByClassName("SetPageTerm-content");
         for(let i=0;i<elements.length;i++){
             const terms = elements[i].getElementsByClassName("TermText notranslate");
-            alert(terms[0].textContent);
+            alert(terms);
             l0_terms[terms[0].textContent] = terms[1].textContent;
             l1_terms[terms[1].textContent] = terms[0].textContent;
         }
