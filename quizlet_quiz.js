@@ -29,11 +29,13 @@ function answer(){
             const question = container.getElementsByClassName("FormattedText notranslate")[0].textContent;
             const answer = l0_terms[question]!=undefined ? l0_terms[question] : l1_terms[question];
             container.getElementsByClassName("AssemblyInput-input AssemblyInput-placeholder")[0].value = answer;
-            const answer_el = container.createElement("p");
-            answer_el.bgColor = "#000";
-            answer_el.style.color = "#FFF";
-            answer_el.textContent = answer;
-            container.appendChild(answer_el);
+            try{
+                const answer_el = document.createElement("p");
+                answer_el.style.backgroundColor = "#000";
+                answer_el.style.color = "#FFF";
+                answer_el.textContent = answer;
+                container.appendChild(answer_el);
+            }catch{alert("err")}
         }
     }
 }
