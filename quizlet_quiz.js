@@ -41,6 +41,7 @@ xhr.onreadystatechange = e=>{
             l0_terms[terms[0].textContent] = terms[1].textContent;
             l1_terms[terms[1].textContent] = terms[0].textContent;
         }
+        alert(l0_terms);
         answer();
     }
 }
