@@ -23,6 +23,7 @@ async function answer(){
     for(let i=0;i<question_containers.length;i++){
         const container = question_containers[i];
         const q_type = getQType(container);
+        try{
         if(q_type=="True/False"){
             const terms = container.getElementsByClassName("FormattedText notranslate");
             const sections = container.getElementsByTagName("section");
@@ -65,6 +66,7 @@ async function answer(){
                 container.appendChild(answer_el);
             }catch{alert("err")}
         }
+    }catch{alert("err")}
     }
 }
 const xhr = new XMLHttpRequest();
