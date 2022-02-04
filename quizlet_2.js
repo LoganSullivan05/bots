@@ -52,7 +52,7 @@ async function answer(){
                 }
             }
         }
-        if(q_type="Writing question"){
+        if(q_type=="Writing question"){
             //write the answer
             const question = container.getElementsByClassName("FormattedText notranslate")[0].textContent;
             const answer = l0_terms[question]!=undefined ? l0_terms[question] : l1_terms[question];
