@@ -47,14 +47,14 @@ async function test(){
         getElementByXpath("//*[text() = 'Check']").parentElement.click();
         await sleep(100);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
-        if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
+        if(document.getElementsByClassName("_1UqAr")[0]==undefined){
             const answer = options_el[0].textContent.split("1")[0];
             questions[question_el.textContent] = answer;
             continue_el.click();
             test();
             return
         }else{
-            const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+            const answer = document.getElementsByClassName("_1UqAr")[0].textContent;
             questions[question_el.textContent] = answer;
             continue_el.click();
             test();
@@ -89,14 +89,14 @@ async function test(){
         getElementByXpath("//*[text() = 'Check']").parentElement.click();
         await sleep(100);
         const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
-        if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
+        if(document.getElementsByClassName("_1UqAr")[0]==undefined){
             const answer = options_el[0].textContent.split("1")[1];
             questions[question_el.textContent] = answer;
             continue_el.click();
             test();
             return
         }else{
-            const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+            const answer = document.getElementsByClassName("_1UqAr")[0].textContent;
             questions[question_el.textContent] = answer;
             continue_el.click();
             test();
@@ -131,14 +131,14 @@ async function test(){
             getElementByXpath("//*[text() = 'Check']").parentElement.click();
             await sleep(100);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
-            if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
+            if(document.getElementsByClassName("_1UqAr")[0]==undefined){
                 const answer = options_el[0].textContent.split("1")[1];
                 questions[question_el.textContent] = answer;
                 continue_el.click();
                 test();
                 return
             }else{
-                const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+                const answer = document.getElementsByClassName("_1UqAr")[0].textContent;
                 questions[question_el.textContent] = answer;
                 continue_el.click();
                 test();
@@ -175,14 +175,14 @@ async function test(){
             getElementByXpath("//*[text() = 'Check']").parentElement.click();
             await sleep(100);
             const continue_el = getElementByXpath("//*[text() = 'Continue']").parentElement;
-            if(document.getElementsByClassName("_1UqAr _1sqiF")[0]==undefined){
+            if(document.getElementsByClassName("_1UqAr")[0]==undefined){
                 const answer = options_el[0].textContent.split("1")[1];
                 questions[question_el.textContent] = answer;
                 continue_el.click();
                 test();
                 return
             }else{
-                const answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+                const answer = document.getElementsByClassName("_1UqAr")[0].textContent;
                 questions[question_el.textContent] = answer;
                 continue_el.click();
                 test();
@@ -293,7 +293,7 @@ async function test(){
             test();
             return
         }
-        let answer = document.getElementsByClassName("_1UqAr _1sqiF")[0].textContent;
+        let answer = document.getElementsByClassName("_1UqAr")[0].textContent;
         if(answer.split(".").length==2){answer=answer.split(".")[0]}
         if(answer.split("?").length==2){answer=answer.split("?")[0]}
         if(answer.split("!").length==2){answer=answer.split("!")[0]}
