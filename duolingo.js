@@ -197,7 +197,7 @@ async function test(){
             for(let j=1;j<btns.length-2;j++){
                 btns[i].click();
                 btns[j].click();
-                await sleep(25)
+                await sleep(100)
             }
         }
         const continue_el = getElementByXpath("//*[text() = 'Continue']");
