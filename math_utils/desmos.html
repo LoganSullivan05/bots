@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Desmos extension</title>
+</head>
+<body>
+<script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<div id="calculator" style="position: absolute;left: 0%;top: 0%;width: 100%; height: 100%;"></div>
+<script>
+const elt = document.getElementById('calculator');
+const calculator = Desmos.GraphingCalculator(elt);
+calculator.setExpression({id:0,latex:'(0,2),(1,1),(3,3),(4,0),(5,6)'});
+function lagrangeInpertolation(points){
+   let fn="";
+   for(let i=0;i<points.length;i++){
+       if(i!=0){fn+=" + "}
+       fn+=""+points[i].y;
+       let div = "";
+       for(let j=0;j<points.length;j++){
+           if(j==i){continue}
+           fn+=" * (x - "+points[j].x+")";
+           if(div.length>0){div+=" * "}
+           div+="("+points[i].x+" - "+points[j].x+")";
+       }
+       div = eval(div);
+       fn+=" / ( "+div+" )";
+   }
+   //TODO: simplify expression (e.g. (x-1)(x+2)... -> -x^3 + 5x^2...)
+   return fn;
+}
+function lagrangeInpertolation2(points){
+   let fn="";
+   console.log("starting interpolation");
+   for(let i=0;i<points.length;i++){
+       let local_fn = "";
+       //local_fn+=""+points[i].y;
+       let div = "";
+       let start = true;
+       for(let j=0;j<points.length;j++){
+           if(j==i){continue}
+           if(start){start=false}
+           else{local_fn+=" * "}
+           local_fn+="(x - "+points[j].x+")";
+           if(div.length>0){div+=" * "}
+           div+="("+points[i].x+" - "+points[j].x+")";
+        }
+        //div = eval(div);
+        console.log(local_fn);
+       if(i!=0){fn+=" + "}
+       fn+= points[i].y+" * ("+/*simplifyFactored*/(local_fn) + ") / ( "+div+" )";
+   }
+   //TODO: simplify expression (e.g. (x-1)(x+2)... -> -x^3 + 5x^2...)
+   return fn;
+}
+function simplifyFactored(expression){
+    /*error when (x - 0)*/
+    const regex = / \+ | \- /;
+    let split = expression.split(" * ");
+    if(split.length==1){return expression}
+    let standard = split[0].split(")")[0].split("(")[1];
+    if(standard.split(" - ").length==2){
+        const s_split = standard.split(" - ");
+        standard = s_split[0] +" + "+ (-Number(s_split[1]));
+    }
+    for(let i=1;i<split.length;i++){
+        let negative = split[i].split(" - ").length==2;
+        const n1 = Number(split[i].split(regex)[1].split(")")[0])*(1-negative*2);
+        const left = standard.split(regex)[0];
+        let products = {};
+        const standard_split = standard.split(regex);
+        for(let j=0;j<standard_split.length;j++){
+            const term = standard_split[j];
+            if(term.split("x^").length!=1){
+                products[term.split("x^")[1]] = n1*Number(term.split("x^")[0]) || n1;
+            }
+            else if(term.split("x").length!=1){
+                products[1] = n1*Number(term.split("x")[0]) || n1;
+            }
+            else{products[0] = n1*Number(term) || n1}
+        }
+        for(let j=0;j<standard_split.length;j++){
+            const term = standard_split[j];
+            let product=0;
+            let index = 0;
+            if(term.split("x^").length!=1){
+                index = Number(term.split("x^")[1])+1;
+                product = Number(term.split("x^")[0]);
+            }
+            else if(term.split("x").length!=1){
+                index = 2;
+                product = Number(term.split("x")[0]) || 1;
+            }
+            else{index = 1;product = Number(term) || 0}
+            if(products[index]){products[index]+=product}
+            else{products[index]=product}
+        }
+        standard = "";
+        let start = true;
+        for(j in products){
+            if(start){start=false}
+            else{standard+=" + "}
+            if(j==0){standard+=String(products[j])}
+            else if(j==1){standard+=String(products[j])+"x"}
+            else{standard += products[j]+"x^"+j}
+        }
+    }
+    console.log(standard);
+    return standard;
+}
+function parseNormal(expression){
+    //(0,2),(1,1),(3,3),(4,0),(5,6)
+    let points = [];
+    let split = expression.split("),(");
+    for(let i=0;i<split.length;i++){
+       let split2 = split[i].split(",");
+       if(i==split.length-1){split2[1] = split2[1].split(")")[0]}
+       if(i==0){split2[0] = split2[0].split("(")[1]}
+       points.push({
+           x:Number(split2[0]),
+           y:Number(split2[1])
+       });
+   }
+   return points; //lagrangeInpertolation2(points);
+}
+function parseLatex(expression){
+    //\left(0,2\right),\left(1,1\right),\left(3,3\right),\left(4,0\right),\left(5,6\right)
+   let points = [];
+   let split = expression.split("\\right),\\left(");
+   if(split.length==1){return parseNormal(expression)}
+   for(let i=0;i<split.length;i++){
+       let split2 = split[i].split(",");
+       if(i==split.length-1){split2[1] = split2[1].split("\\right)")[0]}
+       if(i==0){split2[0] = split2[0].split("\\left(")[1]}
+       points.push({
+           x:Number(split2[0]),
+           y:Number(split2[1])
+       });
+   }
+   //const new_expression = lagrangeInpertolation2(points);
+   return points;
+}
+function getDerivative(polynomial){
+    //TODO
+    
+}
+calculator.observe("expressionAnalysis",()=>{
+   const expressions = calculator.getExpressions();
+   let prev_id = 0;
+   for(id in expressions){
+       if(!expressions[id]){continue}
+       const latex = expressions[id].latex;
+       if(!latex){continue}
+       if(latex.split("ls:\\ ").length!=2){continue}
+       const parsed_exp = parseLatex(expressions[prev_id].latex);
+       let new_exp = "none";
+       switch(latex.split("ls:\\ ")[1]){
+           case "lagrangeInterpolate":new_exp=lagrangeInpertolation(parsed_exp);break;
+           //TODO: derivative, 
+       }
+       console.log(new_exp);
+       if(new_exp!="none"){
+           calculator.setExpression({id:id+1,latex:new_exp});
+        }
+       prev_id=id;
+   }
+});
+</script>
+</body>
+</html>
