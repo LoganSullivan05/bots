@@ -142,9 +142,39 @@ function parseLatex(expression){
    //const new_expression = lagrangeInpertolation2(points);
    return points;
 }
+function parseNormalPoly(exp){
+    //TODO
+    let terms = {};
+}
+function parseLatexPoly(exp){
+    let terms = {};
+    let split = exp.split("\\ +\\ ");
+    if(split.length==1){return parseNormalPoly(exp)}
+    for(let i=0;i<split.length;i++){
+        if(split[i].split("x^{").length==1){
+            if(split[i].split("x").length==1){
+                let n = Number(split[i]);
+                if(terms[0]){terms[0]+=n}
+                else{terms[0]=n}
+                continue
+            }
+            let n = split[i].split("x")[0];
+            if(n==""){n=1}else{n=Number(n)}
+            if(terms[1]){terms[1]+=n}
+            else{terms[1]=n}
+            continue
+        }
+        let x = Number(split[i].split("x^{")[1].split("}")[0]);
+        let n = Number(split[i].split("x^{")[0]);
+        if(terms[x]){terms[x]+=n}
+        else{terms[x]=n}
+    }
+    console.log(terms);
+    return terms;
+}
 function getDerivative(polynomial){
     //TODO
-    
+
 }
 calculator.observe("expressionAnalysis",()=>{
    const expressions = calculator.getExpressions();
