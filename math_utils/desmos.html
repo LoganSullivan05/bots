@@ -48,15 +48,14 @@ function lagrangeInpertolation2(points){
            div+="("+points[i].x+" - "+points[j].x+")";
         }
         //div = eval(div);
-        console.log(local_fn);
        if(i!=0){fn+=" + "}
-       fn+= points[i].y+" * ("+/*simplifyFactored*/(local_fn) + ") / ( "+div+" )";
+       fn+= points[i].y+" * ("+simplifyFactored2(local_fn) + ") / "+eval(div);
    }
-   //TODO: simplify expression (e.g. (x-1)(x+2)... -> -x^3 + 5x^2...)
+   console.log(fn);
    return fn;
 }
 function simplifyFactored(expression){
-    /*error when (x - 0)*/
+    /*incorrect when (x - 0)*/
     const regex = / \+ | \- /;
     let split = expression.split(" * ");
     if(split.length==1){return expression}
@@ -100,6 +99,7 @@ function simplifyFactored(expression){
         standard = "";
         let start = true;
         for(j in products){
+            //if(products[j]==0){continue}
             if(start){start=false}
             else{standard+=" + "}
             if(j==0){standard+=String(products[j])}
@@ -107,13 +107,71 @@ function simplifyFactored(expression){
             else{standard += products[j]+"x^"+j}
         }
     }
-    console.log(standard);
+    return standard;
+}
+function simplifyFactored2(expression){
+    const regex = / \+ | \- /;
+    let split = expression.split(" * ");
+    if(split.length==1){return expression}
+    let standard = split[0].split(")")[0].split("(")[1];
+    if(standard.split(" - ").length==2){
+        const s_split = standard.split(" - ");
+        standard = s_split[0] +" + "+ (-Number(s_split[1]));
+    }
+    for(let i=1;i<split.length;i++){
+        let negative = split[i].split(" - ").length==2;
+        const n1 = Number(split[i].split(regex)[1].split(")")[0])*(1-negative*2);
+        const left = standard.split(regex)[0];
+        let products = {};
+        const standard_split = standard.split(regex);
+        for(let j=0;j<standard_split.length;j++){
+            const term = standard_split[j];
+            if(term.split("x^").length!=1){
+                let n = 1;
+                if(term.split("x^")[0]!=""){n=Number(term.split("x^")[0])}
+                products[term.split("x^")[1]] = n1*n;
+            }
+            else if(term.split("x").length!=1){
+                let n = 1;
+                if(term.split("x")[0]!=""){n=Number(term.split("x")[0])}
+                products[1] = n1*n;
+            }
+            else{products[0] = n1*Number(term)}
+        }
+        for(let j=0;j<standard_split.length;j++){
+            const term = standard_split[j];
+            let product=0;
+            let index = 0;
+            if(term.split("x^").length!=1){
+                index = Number(term.split("x^")[1])+1;
+                product = Number(term.split("x^")[0]);
+            }
+            else if(term.split("x").length!=1){
+                index = 2;
+                product = Number(term.split("x")[0]) || 1;
+            }
+            else{index = 1;product = Number(term) || 0}
+            if(products[index]){products[index]+=product}
+            else{products[index]=product}
+        }
+        standard = "";
+        let start = true;
+        for(j in products){
+            //if(products[j]==0){continue}
+            if(start){start=false}
+            else{standard+=" + "}
+            if(j==0){standard+=String(products[j])}
+            else if(j==1){standard+=String(products[j])+"x"}
+            else{standard += products[j]+"x^"+j}
+        }
+    }
     return standard;
 }
 function parseNormal(expression){
     //(0,2),(1,1),(3,3),(4,0),(5,6)
     let points = [];
     let split = expression.split("),(");
+    if(split.length==1){return parseLatexPoly(expression)}
     for(let i=0;i<split.length;i++){
        let split2 = split[i].split(",");
        if(i==split.length-1){split2[1] = split2[1].split(")")[0]}
@@ -123,7 +181,7 @@ function parseNormal(expression){
            y:Number(split2[1])
        });
    }
-   return points; //lagrangeInpertolation2(points);
+   return points;
 }
 function parseLatex(expression){
     //\left(0,2\right),\left(1,1\right),\left(3,3\right),\left(4,0\right),\left(5,6\right)
@@ -139,12 +197,31 @@ function parseLatex(expression){
            y:Number(split2[1])
        });
    }
-   //const new_expression = lagrangeInpertolation2(points);
    return points;
 }
 function parseNormalPoly(exp){
-    //TODO
     let terms = {};
+    let split = exp.split("+");
+    for(let i=0;i<split.length;i++){
+        if(split[i].split("x^").length==1){
+            if(split[i].split("x").length==1){
+                let n = Number(split[i]);
+                if(terms[0]){terms[0]+=n}
+                else{terms[0]=n}
+                continue
+            }
+            let n = split[i].split("x")[0];
+            if(n==""){n=1}else{n=Number(n)}
+            if(terms[1]){terms[1]+=n}
+            else{terms[1]=n}
+            continue
+        }
+        let x = Number(split[i].split("x^")[1]);
+        let n = Number(split[i].split("x^")[0]);
+        if(terms[x]){terms[x]+=n}
+        else{terms[x]=n}
+    }
+    return terms;
 }
 function parseLatexPoly(exp){
     let terms = {};
@@ -169,34 +246,66 @@ function parseLatexPoly(exp){
         if(terms[x]){terms[x]+=n}
         else{terms[x]=n}
     }
-    console.log(terms);
     return terms;
 }
 function getDerivative(polynomial){
     //TODO
-
+    let d = {};
+    let lowest_x = Infinity;
+    for(i in polynomial){lowest_x = Math.min(i,lowest_x)}
+    for(i in polynomial){
+        if(i==lowest_x){continue}
+        if(d[i-1]){d[i-1]*=polynomial[i]*i}
+        else{d[i-1] = polynomial[i]*i}
+    }
+    let start = true;
+    let exp = "";
+    for(i in d){
+        if(start){start=false}
+        else{exp+=" + "}
+        exp+=String(d[i]);
+        if(i==0){continue}
+        exp+="x";
+        if(i==1){continue}
+        exp+="^"+i;
+    }
+    return exp;
 }
 calculator.observe("expressionAnalysis",()=>{
    const expressions = calculator.getExpressions();
    let prev_id = 0;
    for(id in expressions){
-       if(!expressions[id]){continue}
+       if(!expressions[id]){prev_id=id;continue}
        const latex = expressions[id].latex;
-       if(!latex){continue}
-       if(latex.split("ls:\\ ").length!=2){continue}
+       if(!latex){prev_id=id;continue}
+       if(latex.split("ls:\\ ").length!=2){prev_id=id;continue}
        const parsed_exp = parseLatex(expressions[prev_id].latex);
        let new_exp = "none";
        switch(latex.split("ls:\\ ")[1]){
            case "lagrangeInterpolate":new_exp=lagrangeInpertolation(parsed_exp);break;
+           case "lInterpolate":new_exp=lagrangeInpertolation2(parsed_exp);break;
+           case "derive":new_exp=getDerivative(parsed_exp);break;
            //TODO: derivative, 
        }
-       console.log(new_exp);
        if(new_exp!="none"){
            calculator.setExpression({id:id+1,latex:new_exp});
         }
-       prev_id=id;
    }
 });
+//trie gen for autocomplete
+function trieGen(words){
+    const root = {};
+    for(let i=0;i<words.length;i++){
+        if(!root[words[i].charAt(0)]){root[words[i].charAt(0)]={}}
+        let curr_node = root[words[i].charAt(0)];
+        for(let c=1;c<words[i].length;c++){
+            const char = words[i].charAt(c);
+            if(!curr_node[char]){curr_node[char]={}}
+            curr_node = curr_node[char];
+        }
+    }
+    return root;
+}
 </script>
 </body>
 </html>
