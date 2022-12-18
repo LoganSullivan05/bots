@@ -86,7 +86,9 @@ async function main(){
     await waitForAnswers();
     await sleep(50);
     console.log("on answer");
-    const q = document.getElementsByClassName("styles__questionText___2MlSZ-camelCase")[0].textContent;
+    let q = document.getElementsByClassName("styles__questionText___2MlSZ-camelCase")[0].textContent;
+    const img = document.getElementsByTagName("img")[0];
+    if(img) q+=img.src;
     const a = questions[q];
     if(!a){
         await getQuestionAnswer(q);
